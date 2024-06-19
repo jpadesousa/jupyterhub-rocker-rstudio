@@ -1,0 +1,10 @@
+.gitignore
+.github
+.git
+.pre-commit-config.yaml
+.envs/
+.editorconfig
+docker-compose*
+README.md
+.ruff_cache/
+.dockerignore

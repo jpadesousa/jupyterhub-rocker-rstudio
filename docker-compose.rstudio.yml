@@ -1,0 +1,84 @@
+services:
+  # RSTUDIO R 4.4.0
+  rstudio_4.4.0:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/Dockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.4.0
+        - USER_ID=1000
+        - GROUP_ID=1000
+        - GROUP_NAME=rstudio
+        - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.4.0
+        - PYTHON_VERSION=3.12.4
+        - JUPYTERHUB_VERSION=5.0.0
+        - R_TMPDIR=/scratch/tmp/R
+        - R_HISTSIZE=100000
+        # - HTTP_PROXY=http://example_domain:port
+        # - HTTPS_PROXY=http://example_domain:port
+        # - FTP_PROXY=http://example_domain:port
+    image: rstudio:4.4.0
+
+  # RSTUDIO R 4.3.3
+  rstudio_4.3.3:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/Dockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.3.3
+        - USER_ID=1000
+        - GROUP_ID=1000
+        - GROUP_NAME=rstudio
+        - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.3.3
+        - PYTHON_VERSION=3.12.4
+        - JUPYTERHUB_VERSION=5.0.0
+        - R_TMPDIR=/scratch/tmp/R
+        - R_HISTSIZE=100000
+        # - HTTP_PROXY=http://example_domain:port
+        # - HTTPS_PROXY=http://example_domain:port
+        # - FTP_PROXY=http://example_domain:port
+    image: rstudio:4.3.3
+
+  # RSTUDIO R 4.2.2
+  rstudio_4.2.2:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/Dockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.2.2
+        - USER_ID=1000
+        - GROUP_ID=1000
+        - GROUP_NAME=rstudio
+        - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.2.2
+        - PYTHON_VERSION=3.12.4
+        - JUPYTERHUB_VERSION=5.0.0
+        - R_TMPDIR=/scratch/tmp/R
+        - R_HISTSIZE=100000
+        # - HTTP_PROXY=http://example_domain:port
+        # - HTTPS_PROXY=http://example_domain:port
+        # - FTP_PROXY=http://example_domain:port
+    image: rstudio:4.2.2
+
+  # RSTUDIO R 4.2.0
+  rstudio_4.2.0:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/Dockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.2.0
+        - USER_ID=1000
+        - GROUP_ID=1000
+        - GROUP_NAME=rstudio
+        - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.2.0
+        - PYTHON_VERSION=3.12.4
+        - JUPYTERHUB_VERSION=5.0.0
+        - R_TMPDIR=/scratch/tmp/R
+        - R_HISTSIZE=100000
+        # - HTTP_PROXY=http://example_domain:port
+        # - HTTPS_PROXY=http://example_domain:port
+        # - FTP_PROXY=http://example_domain:port
+    image: rstudio:4.2.0

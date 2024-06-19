@@ -1,0 +1,113 @@
+services:
+  # JUPYTERHUB
+  # ------------------------------
+  jupyterhub:
+    build:
+      context: .
+      dockerfile: ./compose/jupyterhub/Dockerfile
+      args:
+        - JUPYTERHUB_VERSION=5.0.0
+        #- PIP_PROXY= # Optional
+    image: jupyterhub:5.0.0
+    container_name: jupyterhub
+    env_file:
+      - ./.envs/.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - session_data:/srv/jupyterhub/data
+      - scratch_data:/scratch/data
+      - r_libraries:/scratch/software/libraries/R
+      - r_tmp:/scratch/tmp/R
+    networks:
+      - jupyterhub_network
+  # ------------------------------
+
+  # NGINX - Reverse Proxy
+  # ------------------------------
+  nginx:
+    build:
+      context: .
+      dockerfile: ./compose/nginx/Dockerfile
+      args:
+        - IMAGE_TAG=stable-alpine
+        - INCOMING_PORT=443
+        - DOMAIN=domain.example.com
+        - FULLCHAIN=fullchain.pem
+        - PRIVKEY=privkey.pem
+        - DHPARAM=ssl-dhparams.pem
+        - CERTS_DIR=/etc/nginx/ssl
+    image: nginx:stable-alpine
+    container_name: nginx
+    volumes:
+      - ./certs:/etc/nginx/ssl:ro
+    ports:
+      - "443:443"
+    depends_on:
+      - jupyterhub
+    networks:
+      - jupyterhub_network
+  # ------------------------------
+
+  # DATA BACKUP
+  # ------------------------------
+  restic_backup:
+    image: restic/restic:0.16.4
+    container_name: restic
+    volumes:
+      - session_data:/srv/jupyterhub/data
+      - session_data_backup:/backups
+    env_file:
+      - ./.envs/.env
+    environment:
+      - RESTIC_REPOSITORY=/backups
+    entrypoint: /bin/sh -c
+    command: >
+      'restic init || true;
+      while true; do
+        restic backup /srv/jupyterhub/data &&
+        restic forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 12 &&
+        sleep 86400;
+      done'
+  # ------------------------------
+
+# VOLUMES
+# ------------------------------
+volumes:
+  session_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /scratch/.sessions/jupyterhub
+      o: bind
+  session_data_backup:
+    driver: local
+    driver_opts:
+      type: none
+      device: /scratch/.backups/jupyterhub
+      o: bind
+  scratch_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /scratch/data
+      o: bind
+  r_libraries:
+    driver: local
+    driver_opts:
+      type: none
+      device: /scratch/software/libraries/R
+      o: bind
+  r_tmp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /scratch/tmp/R
+      o: bind
+# ------------------------------
+
+# NETWORKS
+# ------------------------------
+networks:
+  jupyterhub_network:
+    name: jupyterhub_network
+# ------------------------------
