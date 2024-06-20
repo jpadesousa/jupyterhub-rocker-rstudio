@@ -10,6 +10,9 @@ c.JupyterHub.spawner_class = OptionsFormSpawner
 # Enable named servers
 c.JupyterHub.allow_named_servers = True
 
+# Maximum number of concurrent servers that can be active at a time
+c.JupyterHub.active_server_limit = int(os.getenv("JUPYTERHUB_ACTIVE_SERVER_LIMIT", 0))
+
 # Set the default URLs
 c.JupyterHub.default_url = os.getenv("JUPYTERHUB_DEFAULT_URL", "/hub/spawn")
 
