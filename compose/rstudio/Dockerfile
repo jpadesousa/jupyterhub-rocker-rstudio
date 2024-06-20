@@ -42,7 +42,9 @@ RUN apt-get update && \
     tk-dev \
     wget \
     xz-utils \
-    zlib1g-dev
+    zlib1g-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 USER rstudio
 WORKDIR /home/rstudio
