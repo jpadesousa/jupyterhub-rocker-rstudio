@@ -2,3 +2,4 @@ jupyter-rsession-proxy==2.2.1
 notebook==7.2.1
 jupyterlab==4.2.2
 mofapy2==0.7.1
+pyOpenSSL==24.1.0

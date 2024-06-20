@@ -13,10 +13,36 @@ RUN groupadd -g ${GROUP_ID} ${GROUP_NAME} || true && \
 
 # Update the package list and install necessary dependencies for pyenv and Python build
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends git curl python3-pip make build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev \
-    xz-utils tk-dev libffi-dev liblzma-dev openssl nodejs npm libglpk-dev && \
-    pip3 install pyOpenSSL
+    apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git \
+    libbz2-dev \
+    libffi-dev \
+    libgdal-dev \
+    libgsl-dev \
+    libhdf5-dev \
+    liblzma-dev \
+    libncurses5-dev \
+    libncursesw5-dev \
+    libpq-dev \
+    libproj-dev \
+    libreadline-dev \
+    libsqlite3-dev \
+    libssl-dev \
+    libudunits2-dev \
+    libzmq3-dev \
+    libglpk-dev \
+    llvm \
+    make \
+    nodejs \
+    npm \
+    openssl \
+    python3-pip \
+    tk-dev \
+    wget \
+    xz-utils \
+    zlib1g-dev
 
 USER rstudio
 WORKDIR /home/rstudio
@@ -71,4 +97,4 @@ RUN pip install --no-cache-dir -r rstudio.txt && \
 # Update the PATH environment variable for the 'rstudio' user
 RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 
-CMD ["jupyterhub-singleuser"]
+CMD [ "jupyterhub-singleuser" ]
