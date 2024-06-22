@@ -1,22 +1,22 @@
 import os
 from distutils.util import strtobool
 from options_form_spawner import OptionsFormSpawner
+from auth_state_hook import auth_state_hook
+from pre_spawn_hook import pre_spawn_hook
 
 c = get_config()  # noqa
 
-# Set the custom spawner as the default spawner
+# JupyterHub configuration
 c.JupyterHub.spawner_class = OptionsFormSpawner
-
-# Enable named servers
 c.JupyterHub.allow_named_servers = True
-
-# Maximum number of concurrent servers that can be active at a time
 c.JupyterHub.active_server_limit = int(os.getenv("JUPYTERHUB_ACTIVE_SERVER_LIMIT", 0))
-
-# Set the default URLs
 c.JupyterHub.default_url = os.getenv("JUPYTERHUB_DEFAULT_URL", "/hub/spawn")
+c.JupyterHub.log_level = "DEBUG"
+c.JupyterHub.hub_ip = "jupyterhub"
+c.JupyterHub.bind_url = os.getenv("JUPYTERHUB_BIND_URL", "http://:8000")
+c.JupyterHub.db_url = "sqlite:///data/jupyterhub.sqlite"
 
-# Set the authenticator class and configure it
+# Authenticator configuration
 c.JupyterHub.authenticator_class = os.getenv(
     "JUPYTERHUB_AUTHENTICATOR_CLASS", "jupyterhub.auth.PAMAuthenticator"
 )
@@ -27,45 +27,52 @@ c.Authenticator.any_allow_config = bool(
 )
 c.Authenticator.allow_all = bool(strtobool(os.getenv("JUPYTERHUB_ALLOW_ALL", "False")))
 c.Authenticator.delete_invalid_users = True
+c.Authenticator.enable_auth_state = True
 
 # If the authenticator is set to use LDAP, configure the LDAP settings
 if os.getenv("JUPYTERHUB_AUTHENTICATOR_CLASS") == "ldapauthenticator.LDAPAuthenticator":
-    c.LDAPAuthenticator.server_hosts = os.getenv("LDAP_AUTHENTICATOR_SERVER_HOSTS")
-    c.LDAPAuthenticator.server_use_ssl = bool(
-        strtobool(os.getenv("LDAP_AUTHENTICATOR_SERVER_USE_SSL"))
-    )
+    c.LDAPAuthenticator.server_address = os.getenv("LDAP_AUTHENTICATOR_SERVER_ADDRESS")
     c.LDAPAuthenticator.server_port = int(os.getenv("LDAP_AUTHENTICATOR_SERVER_PORT"))
-    c.LDAPAuthenticator.bind_user_dn = os.getenv("LDAP_AUTHENTICATOR_BIND_USER_DN")
-    c.LDAPAuthenticator.bind_user_password = os.getenv(
-        "LDAP_AUTHENTICATOR_BIND_USER_PASSWORD"
+    c.LDAPAuthenticator.use_ssl = bool(
+        strtobool(os.getenv("LDAP_AUTHENTICATOR_USE_SSL"))
+    )
+    c.LDAPAuthenticator.lookup_dn = bool(
+        strtobool(os.getenv("LDAP_AUTHENTICATOR_LOOKUP_DN"))
+    )
+    c.LDAPAuthenticator.lookup_dn_search_filter = os.getenv(
+        "LDAP_AUTHENTICATOR_LOOKUP_DN_SEARCH_FILTER"
+    )
+    c.LDAPAuthenticator.lookup_dn_search_user = os.getenv(
+        "LDAP_AUTHENTICATOR_LOOKUP_DN_SEARCH_USER"
+    )
+    c.LDAPAuthenticator.lookup_dn_search_password = os.getenv(
+        "LDAP_AUTHENTICATOR_LOOKUP_DN_SEARCH_PASSWORD"
     )
     c.LDAPAuthenticator.user_search_base = os.getenv(
         "LDAP_AUTHENTICATOR_USER_SEARCH_BASE"
     )
-    c.LDAPAuthenticator.user_search_filter = os.getenv(
-        "LDAP_AUTHENTICATOR_USER_SEARCH_FILTER"
+    c.LDAPAuthenticator.user_attribute = os.getenv("LDAP_AUTHENTICATOR_USER_ATTRIBUTE")
+    c.LDAPAuthenticator.lookup_dn_user_dn_attribute = os.getenv(
+        "LDAP_AUTHENTICATOR_LOOKUP_DN_USER_DN_ATTRIBUTE"
+    )
+    c.LDAPAuthenticator.auth_state_attributes = os.getenv(
+        "LDAP_AUTHENTICATOR_AUTH_STATE_ATTRIBUTES"
+    ).split(",")
+
+# Spawner configuration
+c.Spawner.environment = {"TERM": "xterm-color"}
+if os.getenv("JUPYTERHUB_AUTHENTICATOR_CLASS") == "ldapauthenticator.LDAPAuthenticator":
+    c.Spawner.auth_state_hook = auth_state_hook
+else:
+    userid = str(os.getenv("DOCKER_NOTEBOOK_USERID", 1000))
+    groupid = str(os.getenv("DOCKER_NOTEBOOK_GROUPID", 1000))
+    c.Spawner.environment.update(
+        {"USERID": userid, "GROUPID": groupid, "NB_UID": userid, "NB_GID": groupid}
     )
 
-# Configure the DockerSpawner to remove containers after they stop
-c.DockerSpawner.remove = True
-
-# Configure the Docker network
+c.Spawner.pre_spawn_hook = pre_spawn_hook
+c.DockerSpawner.remove = True  # Remove containers after they stop
 c.DockerSpawner.use_internal_ip = True
 c.DockerSpawner.network_name = "jupyterhub_network"
-
-# Set the log level and HTTP timeout
-c.JupyterHub.log_level = "DEBUG"
 c.DockerSpawner.http_timeout = int(900)
 c.DockerSpawner.start_timeout = int(900)
-
-# Configure the database for persistence
-c.JupyterHub.db_url = "sqlite:///data/jupyterhub.sqlite"
-
-# Set environment variables for the spawner
-c.Spawner.environment = {"TERM": "xterm-color"}
-
-# Set the IP address that the JupyterHub service will bind to
-c.JupyterHub.hub_ip = "jupyterhub"
-
-# Set the URL and port that the JupyterHub service will listen on
-c.JupyterHub.bind_url = os.getenv("JUPYTERHUB_BIND_URL", "http://:8000")

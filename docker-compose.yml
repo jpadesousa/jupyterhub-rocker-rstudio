@@ -7,7 +7,8 @@ services:
       dockerfile: ./compose/jupyterhub/Dockerfile
       args:
         - JUPYTERHUB_VERSION=5.0.0
-        #- PIP_PROXY= # Optional
+        - DOCKER_GID=981 # Default: 1000
+        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: jupyterhub:5.0.0
     container_name: jupyterhub
     env_file:
@@ -15,11 +16,10 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - session_data:/srv/jupyterhub/data
-      - scratch_data:/scratch/data
-      - r_libraries:/scratch/software/libraries/R
-      - r_tmp:/scratch/tmp/R
     networks:
       - jupyterhub_network
+    ports:
+      - "8787:8000"
   # ------------------------------
 
   # NGINX - Reverse Proxy
@@ -84,24 +84,6 @@ volumes:
     driver_opts:
       type: none
       device: /scratch/.backups/jupyterhub
-      o: bind
-  scratch_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /scratch/data
-      o: bind
-  r_libraries:
-    driver: local
-    driver_opts:
-      type: none
-      device: /scratch/software/libraries/R
-      o: bind
-  r_tmp:
-    driver: local
-    driver_opts:
-      type: none
-      device: /scratch/tmp/R
       o: bind
 # ------------------------------
 

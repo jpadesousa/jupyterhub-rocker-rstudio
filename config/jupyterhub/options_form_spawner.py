@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from dockerspawner import DockerSpawner
 from options_form_spawner_template import get_form_template
 
@@ -7,26 +8,33 @@ from options_form_spawner_template import get_form_template
 class OptionsFormSpawner(DockerSpawner):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # List of the docker notebooks images
         self.server_images = os.getenv(
             "DOCKER_NOTEBOOKS", "jupyter/minimal-notebook:latest"
         ).split(",")
         self.server_options = {image: image for image in self.server_images}
+
+        # List of docker notebook ports
         self.server_ports = json.loads(
-            os.getenv("DOCKER_NOTEBOOK_PORTS", '{"jupyter/minimal-notebook": 10000}')
+            os.getenv("DOCKER_NOTEBOOK_PORTS", '{"jupyter/minimal-notebook": 8888}')
         )
+
+        # Docker notebook default directory
         self.server_dir = json.loads(
             os.getenv(
                 "DOCKER_NOTEBOOK_DIR",
-                '{"jupyter/minimal-notebook": "/home/jovyan/work"}',
+                '{"jupyter/minimal-notebook": "/home/jovyan"}',
             )
         )
-        self.volumes = {f"jupyterhub-user-{self.user.name}": self.server_dir}
 
-        additional_volumes_str = os.getenv("DOCKER_NOTEBOOK_ADD_VOLUMES")
-        if additional_volumes_str:
-            additional_volumes = json.loads(additional_volumes_str)
-            self.volumes.update(additional_volumes)
+        # Add shared volumes between the host and the container
+        add_volumes_str = os.getenv("DOCKER_NOTEBOOK_ADD_VOLUMES")
+        if add_volumes_str:
+            add_volumes = json.loads(add_volumes_str)
+            self.volumes.update(add_volumes)
 
+        # Jupyterhub default URL for the docker notebook
         self.server_default_url = json.loads(
             os.getenv(
                 "DOCKER_NOTEBOOK_DEFAULT_URL", '{"jupyter/minimal-notebook": "/lab"}'
@@ -43,6 +51,12 @@ class OptionsFormSpawner(DockerSpawner):
         self.notebook_dir = self.server_dir.get(base_image_name)
         self.volumes.update({f"jupyterhub-user-{self.user.name}": self.notebook_dir})
         self.default_url = self.server_default_url.get(base_image_name)
+
+        # Starting the jupyter/*-notebook as root to change the uid and gid of the user
+        if re.match(r"^jupyter/.+-notebook$", base_image_name):
+            self.extra_create_kwargs.update({"user": "root"})
+            self.environment["CHOWN_HOME"] = "yes"
+            self.environment["CHOWN_HOME_OPTS"] = "-R"
 
         return await super().start(*args, **kwargs)
 
