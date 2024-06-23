@@ -76,3 +76,14 @@ c.DockerSpawner.use_internal_ip = True
 c.DockerSpawner.network_name = "jupyterhub_network"
 c.DockerSpawner.http_timeout = int(900)
 c.DockerSpawner.start_timeout = int(900)
+if os.getenv("DOCKERSPAWNER_CPU_GUARANTEE") is not None:
+    c.DockerSpawner.cpu_guarantee = int(os.getenv("DOCKERSPAWNER_CPU_GUARANTEE"))
+
+if os.getenv("DOCKERSPAWNER_CPU_LIMIT") is not None:
+    c.DockerSpawner.cpu_limit = int(os.getenv("DOCKERSPAWNER_CPU_LIMIT"))
+
+if os.getenv("DOCKERSPAWNER_MEM_GUARANTEE") is not None:
+    c.DockerSpawner.mem_guarantee = os.getenv("DOCKERSPAWNER_MEM_GUARANTEE")
+
+if os.getenv("DOCKERSPAWNER_MEM_LIMIT") is not None:
+    c.DockerSpawner.mem_limit = os.getenv("DOCKERSPAWNER_MEM_LIMIT")

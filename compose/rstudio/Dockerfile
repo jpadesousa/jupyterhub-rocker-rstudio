@@ -40,20 +40,18 @@ RUN apt-get update && \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Set user and work directory
-USER rstudio
+# Set working directory
 WORKDIR /home/rstudio
 
 # Environment variables setup
 ENV HOME /home/rstudio
-ENV PYENV_ROOT $HOME/.pyenv
+ENV PYENV_ROOT /opt/pyenv
 ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
 
 # R environment configuration
 ARG R_LIBS=""
 ARG R_HISTSIZE=1000
 ARG R_TMPDIR=/tmp
-USER root
 RUN if [ -z "${R_LIBS}" ]; then \
         echo "R_LIBS=/usr/local/lib/R/site-library:/usr/local/lib/R/library" > $R_HOME/etc/Renviron.site; \
     else \
@@ -73,25 +71,27 @@ ARG STARTUP_MESSAGE
 RUN if [ "${STARTUP_MESSAGE}" ]; then echo "message(${STARTUP_MESSAGE})" >> $R_HOME/etc/Rprofile.site; fi
 
 # pyenv and Python setup
-USER rstudio
 RUN curl https://pyenv.run | bash
 ARG PYTHON_VERSION
 RUN pyenv install $PYTHON_VERSION && \
     pyenv global $PYTHON_VERSION
+RUN chown -R rstudio:rstudio /opt/pyenv
 
 # JupyterHub installation
+USER rstudio
 ARG JUPYTERHUB_VERSION
-RUN pip install jupyterhub==${JUPYTERHUB_VERSION}
+RUN pip install --upgrade pip && \
+    pip install jupyterhub==${JUPYTERHUB_VERSION}
 
 # Python dependencies installation
 COPY ./requirements/rstudio.txt .
 RUN pip install --no-cache-dir -r rstudio.txt && \
     rm rstudio.txt
 
-# Update PATH for rstudio user
+# Update PATH
 RUN echo 'export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
 
 # Final setup
 USER root
-RUN echo "exec su rstudio -c /home/rstudio/.pyenv/shims/jupyterhub-singleuser" >> /init
+RUN echo "exec su rstudio -c /opt/pyenv/shims/jupyterhub-singleuser" >> /init
 CMD ["/init"]

@@ -24,7 +24,7 @@ class OptionsFormSpawner(DockerSpawner):
         self.server_dir = json.loads(
             os.getenv(
                 "DOCKER_NOTEBOOK_DIR",
-                '{"jupyter/minimal-notebook": "/home/jovyan"}',
+                '{"jupyter/minimal-notebook": "/home/jovyan/work"}',
             )
         )
 

@@ -1,5 +1,19 @@
 jupyter-rsession-proxy==2.2.1
 notebook==7.2.1
 jupyterlab==4.2.2
-mofapy2==0.7.1
 pyOpenSSL==24.1.0
+
+# List of Python packages for data science and bioinformatics
+numpy==1.26.4
+pandas==2.2.2
+scipy==1.13.1
+matplotlib==3.9.0
+seaborn==0.13.2
+scikit-learn==1.5.0
+statsmodels==0.14.2
+plotly==5.22.0
+torch==2.3.1
+biopython==1.83
+pysam==0.22.1
+scikit-bio==0.6.1
+mofapy2==0.7.1

@@ -47,7 +47,7 @@ services:
       args:
         - IMAGE_NAME=rocker/rstudio
         - IMAGE_TAG=4.2.2
-        - PYTHON_VERSION=3.11.6
+        - PYTHON_VERSION=3.10.9
         - JUPYTERHUB_VERSION=5.0.0
         - STARTUP_MESSAGE="Access the NAS (//nas12/green_groups_nme_public) at /public and the scratch folder at /scratch." # Default: If not set, does not add to Rprofile.site
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.2.2 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
