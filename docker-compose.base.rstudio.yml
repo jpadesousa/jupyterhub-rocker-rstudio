@@ -1,0 +1,30 @@
+services:
+  # RSTUDIO R 4.4.0
+  rstudio_4.4.0:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/baseDockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.4.0
+    image: rocker_rstudio_extended:4.4.0
+
+  # RSTUDIO R 4.3.3
+  rstudio_4.3.3:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/baseDockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.3.3
+    image: rocker_rstudio_extended:4.3.3
+
+  # RSTUDIO R 4.2.2
+  rstudio_4.2.2:
+    build:
+      context: .
+      dockerfile: ./compose/rstudio/baseDockerfile
+      args:
+        - IMAGE_NAME=rocker/rstudio
+        - IMAGE_TAG=4.2.2
+    image: rocker_rstudio_extended:4.2.2

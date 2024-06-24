@@ -3,43 +3,6 @@ ARG IMAGE_TAG
 ARG IMAGE_NAME
 FROM ${IMAGE_NAME}:${IMAGE_TAG}
 
-# Install dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    build-essential \
-    curl \
-    git \
-    libbz2-dev \
-    libffi-dev \
-    libgdal-dev \
-    libgsl-dev \
-    libhdf5-dev \
-    liblzma-dev \
-    libncurses5-dev \
-    libncursesw5-dev \
-    libpq-dev \
-    libproj-dev \
-    libreadline-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    libudunits2-dev \
-    libzmq3-dev \
-    libglpk-dev \
-    libfftw3-3 \
-    libsuitesparse-dev \
-    llvm \
-    make \
-    nodejs \
-    npm \
-    openssl \
-    python3-pip \
-    tk-dev \
-    wget \
-    xz-utils \
-    zlib1g-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 # Set working directory
 WORKDIR /home/rstudio
 

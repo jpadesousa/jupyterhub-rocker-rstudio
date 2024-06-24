@@ -15,6 +15,12 @@ c.JupyterHub.log_level = "DEBUG"
 c.JupyterHub.hub_ip = "jupyterhub"
 c.JupyterHub.bind_url = os.getenv("JUPYTERHUB_BIND_URL", "http://:8000")
 c.JupyterHub.db_url = "sqlite:///data/jupyterhub.sqlite"
+c.JupyterHub.cleanup_servers = False
+
+# configurable-http-proxy configuration
+c.ConfigurableHTTPProxy.should_start = False
+c.ConfigurableHTTPProxy.auth_token = os.getenv("CONFIGPROXY_AUTH_TOKEN")
+c.ConfigurableHTTPProxy.api_url = "http://configurable_http_proxy:8001"
 
 # Authenticator configuration
 c.JupyterHub.authenticator_class = os.getenv(

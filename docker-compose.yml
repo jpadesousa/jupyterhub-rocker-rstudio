@@ -1,4 +1,28 @@
 services:
+  # CONFIGURABLE HTTP PROXY
+  # ------------------------------
+  configurable_http_proxy:
+    image: jupyterhub/configurable-http-proxy:4.6.2
+    container_name: configurable-http-proxy
+    networks:
+      - jupyterhub_network
+    command: >
+      configurable-http-proxy
+      --port=8000
+      --api-ip=0.0.0.0
+      --api-port=8001
+      --default-target=http://jupyterhub:8081
+      --error-target=http://jupyterhub:8081/hub/error
+    env_file:
+      - ./.envs/.env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/_chp_healthz"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+    ports:
+      - "8787:8000"
+
   # JUPYTERHUB
   # ------------------------------
   jupyterhub:
@@ -18,8 +42,9 @@ services:
       - session_data:/srv/jupyterhub/data
     networks:
       - jupyterhub_network
-    ports:
-      - "8787:8000"
+    depends_on:
+      configurable_http_proxy:
+        condition: service_healthy
   # ------------------------------
 
   # NGINX - Reverse Proxy
