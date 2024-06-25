@@ -1,6 +1,6 @@
 # jupyterhub-rocker-rstudio
 
-<img src="assets/hublogo.png" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 20px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 20px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
+<img src="assets/hublogo.png" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 50px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 50px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
 
 ## Description
 
@@ -202,45 +202,6 @@ def pre_spawn_hook(spawner):
 
 ---
 
-#### Mandatory Variables
-
-- **RESTIC_PASSWORD**: Specify the password for [restic](https://restic.net/) backups.
-- **JUPYTERHUB_CRYPT_KEY**: Essential for encryption, details at [JupyterHub's Authenticators](https://jupyterhub.readthedocs.io/en/latest/reference/authenticators.html).
-- **CONFIGPROXY_AUTH_TOKEN**: Required for the proxy, see [Separating Proxy](https://jupyterhub.readthedocs.io/en/latest/howto/separate-proxy.html).
-
-#### Optional Variables - JupyterHub
-
-Define JupyterHub configuration variables as needed. For more details, see `./config/jupyterhub/jupyterhub_config.py`.
-
-#### Optional Variables - LDAPAuthenticator
-
-For LDAPAuthenticator users, fill in your LDAP server variables. More info at [LDAPAuthenticator GitHub](https://github.com/jupyterhub/ldapauthenticator). ETH Zürich colleagues can contact me for LDAP configuration assistance.
-
-#### Optional Variables - Docker Spawner Options
-
-Authenticated users can select the Docker container to spawn. Available images are defined by `DOCKER_NOTEBOOKS = "rstudio:4.4.0,rstudio:4.3.3,rstudio:4.2.2,jupyter/datascience-notebook:2023-10-20"`. Docker will check for these images locally before attempting to download them from DockerHub.
-
-#### Optional Variables - Docker Notebook UID and GID
-
-- **DOCKER_NOTEBOOK_USERID**
-- **DOCKER_NOTEBOOK_GROUPID**
-
-These set the USERID and GROUPID (for RStudio) and NB_UID and NB_GID (for Jupyter notebooks) environment variables, aligning user IDs across the system. By default, it uses LDAP user information but falls back to default values if not specified.
-
-#### Optional Variables - DockerSpawner
-
-Configure CPU and memory allocation for Docker notebook containers:
-
-- **DOCKERSPAWNER_CPU_GUARANTEE** and **DOCKERSPAWNER_CPU_LIMIT** for CPU resources.
-- **DOCKERSPAWNER_MEM_GUARANTEE** and **DOCKERSPAWNER_MEM_LIMIT** for memory resources.
-  Refer to the [DockerSpawner API](https://jupyterhub-dockerspawner.readthedocs.io/en/latest/api/index.html) for more details.
-
-#### Optional Variables - Pre-Spawn Hook
-
-Enables mounting `/scratch` and `/home/{username}/public` at container startup, facilitating file access. Adjust `./config/jupyterhub/pre_spawn_hook.py` as needed for your setup.
-
-#### `.envs/.env`:
-
 ```bash
 # MANDATORY
 # ----------------------------
@@ -320,6 +281,43 @@ PRE_SPAWN_HOOK_MOUNT_SCRATCH = False # Default: False
 PRE_SPAWN_HOOK_MOUNT_PUBLIC = False # Default: False
 
 ```
+
+#### Mandatory Variables
+
+- **RESTIC_PASSWORD**: Specify the password for [restic](https://restic.net/) backups.
+- **JUPYTERHUB_CRYPT_KEY**: Essential for encryption, details at [JupyterHub's Authenticators](https://jupyterhub.readthedocs.io/en/latest/reference/authenticators.html).
+- **CONFIGPROXY_AUTH_TOKEN**: Required for the proxy, see [Separating Proxy](https://jupyterhub.readthedocs.io/en/latest/howto/separate-proxy.html).
+
+#### Optional Variables - JupyterHub
+
+Define JupyterHub configuration variables as needed. For more details, see `./config/jupyterhub/jupyterhub_config.py`.
+
+#### Optional Variables - LDAPAuthenticator
+
+For LDAPAuthenticator users, fill in your LDAP server variables. More info at [LDAPAuthenticator GitHub](https://github.com/jupyterhub/ldapauthenticator). ETH Zürich colleagues can contact me for LDAP configuration assistance.
+
+#### Optional Variables - Docker Spawner Options
+
+Authenticated users can select the Docker container to spawn. Available images are defined by `DOCKER_NOTEBOOKS = "rstudio:4.4.0,rstudio:4.3.3,rstudio:4.2.2,jupyter/datascience-notebook:2023-10-20"`. Docker will check for these images locally before attempting to download them from DockerHub.
+
+#### Optional Variables - Docker Notebook UID and GID
+
+- **DOCKER_NOTEBOOK_USERID**
+- **DOCKER_NOTEBOOK_GROUPID**
+
+These set the USERID and GROUPID (for RStudio) and NB_UID and NB_GID (for Jupyter notebooks) environment variables, aligning user IDs across the system. By default, it uses LDAP user information but falls back to default values if not specified.
+
+#### Optional Variables - DockerSpawner
+
+Configure CPU and memory allocation for Docker notebook containers:
+
+- **DOCKERSPAWNER_CPU_GUARANTEE** and **DOCKERSPAWNER_CPU_LIMIT** for CPU resources.
+- **DOCKERSPAWNER_MEM_GUARANTEE** and **DOCKERSPAWNER_MEM_LIMIT** for memory resources.
+  Refer to the [DockerSpawner API](https://jupyterhub-dockerspawner.readthedocs.io/en/latest/api/index.html) for more details.
+
+#### Optional Variables - Pre-Spawn Hook
+
+Enables mounting `/scratch` and `/home/{username}/public` at container startup, facilitating file access. Adjust `./config/jupyterhub/pre_spawn_hook.py` as needed for your setup.
 
 ## Acknowledgements
 
