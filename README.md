@@ -1,10 +1,17 @@
 # jupyterhub-rocker-rstudio
 
-<img src="assets/hublogo.png" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 50px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 50px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
+<div>
+<img src="assets/hublogo.png" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="vertical-align: top;">
+&nbsp;
+<img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="vertical-align: top;">
+&nbsp;
+&nbsp;
+<img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
+<div/>
 
 ## Description
 
-This repository offers a deployment solution for [JupyterHub](https://jupyter.org/hub) on a server used by a small team, leveraging Docker to spawn images from [The Rocker Project](https://rocker-project.org/). The primary objective is to facilitate the management of multiple concurrent R versions, enabling users to select the appropriate version for their projects. Furthermore, Rocker Docker images apply a timestamp to R package installations, ensuring consistency by aligning package versions with the Docker image version.
+This repository offers a deployment solution for [JupyterHub](https://jupyter.org/hub) on a server used by a small team, allowing users to spawn images from [The Rocker Project](https://rocker-project.org/). The primary objective of this solution is to facilitate the management of multiple concurrent R versions, enabling users to select the appropriate version for their projects. Furthermore, Rocker Docker images apply a timestamp to R package installations, ensuring consistency by aligning package versions with the Docker image version.
 
 ## Quick demo
 
@@ -14,15 +21,13 @@ This repository offers a deployment solution for [JupyterHub](https://jupyter.or
 
 - Simplified deployment of [JupyterHub](https://jupyter.org/hub) within a Docker container.
 - Isolation of running user notebooks from the hub through a separate [configurable-http-proxy](https://github.com/jupyterhub/configurable-http-proxy).
-- Option to incorporate [nginx](https://nginx.org/en/) as a reverse proxy for improved performance and security.
-- Integration with [DockerSpawner](https://github.com/jupyterhub/dockerspawner) allows for the spawning of multiple notebook or RStudio containers for both individual and multiple users simultaneously.
+- Option to incorporate [nginx](https://nginx.org/en/) as a reverse proxy.
+- Integration with [DockerSpawner](https://github.com/jupyterhub/dockerspawner) allowing the spawning of multiple notebook or RStudio containers for both individual and multiple users simultaneously.
 - Implementation of [LDAP authentication](https://github.com/jupyterhub/ldapauthenticator) for secure user verification.
 - Compatibility with [The Rocker Project](https://rocker-project.org/) Docker images and [JupyterHub Docker Stacks](https://jupyter-docker-stacks.readthedocs.io/en/latest/) notebooks.
-- Ensures data persistence through the use of a SQLite database, complemented by secure backups with [restic](https://restic.net/).
+- Data persistence through the use of a SQLite database, complemented by secure backups with [restic](https://restic.net/).
 
 ## Installation Guide
-
-Follow these steps to set up the environment:
 
 1. **Clone the Repository**
 
@@ -70,7 +75,7 @@ Follow these steps to set up the environment:
 
 ## Configuring Environmental Variables
 
-Customizing the environmental variables is a crucial step to tailor the project to your specific system requirements. You will need to modify two key files: `docker-compose.yml` and `.envs/.env`.
+Customizing the environmental variables is a crucial step to tailor the project to your specific system requirements. You will need to modify two key files: `docker-compose.yml` and `.envs/.env`. Optionally, you can also modify the file `docker-compose.rstudio.yml`.
 
 ### docker-compose.yml
 
@@ -305,7 +310,7 @@ Authenticated users can select the Docker container to spawn. Available images a
 - **DOCKER_NOTEBOOK_USERID**
 - **DOCKER_NOTEBOOK_GROUPID**
 
-These set the USERID and GROUPID (for RStudio) and NB_UID and NB_GID (for Jupyter notebooks) environment variables, aligning user IDs across the system. By default, it uses LDAP user information but falls back to default values if not specified.
+These set the USERID and GROUPID (for RStudio) and NB_UID and NB_GID (for Jupyter notebooks) environment variables, aligning user IDs across the system. By default, it uses LDAP user information but falls back to default values if not specified. To use the `uid` and `gid` from PAM authentication, the Jupyterhub configuration needs to be adapted.
 
 #### Optional Variables - DockerSpawner
 
@@ -317,7 +322,7 @@ Configure CPU and memory allocation for Docker notebook containers:
 
 #### Optional Variables - Pre-Spawn Hook
 
-Enables mounting `/scratch` and `/home/{username}/public` at container startup, facilitating file access. Adjust `./config/jupyterhub/pre_spawn_hook.py` as needed for your setup.
+Enables mounting `/scratch` and `/home/{username}/public` at container startup, facilitating file access. This was a requirement for my setup. Adjust `./config/jupyterhub/pre_spawn_hook.py` as needed for your setup.
 
 ## Acknowledgements
 
