@@ -3,3 +3,4 @@ backups/
 certs/
 .ruff_cache/
 data/
+.DS_Store
