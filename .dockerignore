@@ -8,3 +8,4 @@ docker-compose*
 README.md
 .ruff_cache/
 .dockerignore
+assets/

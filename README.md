@@ -1,8 +1,6 @@
 # jupyterhub-rocker-rstudio
 
-<img src="assets/hublogo.svg" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 20px; vertical-align: top;">
-<img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 20px; vertical-align: top;">
-<img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
+<img src="assets/hublogo.svg" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 10px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 10px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
 
 ## Description
 
@@ -28,15 +26,11 @@ Follow these steps to set up the environment:
 
 1. **Clone the Repository**
 
-   Begin by cloning the repository to your local machine:
-
    ```bash
    git clone https://github.com/jpadesousa/jupyterhub-rocker-rstudio.git
    ```
 
 2. **Navigate to the Project Directory**
-
-   Change into the project directory with:
 
    ```bash
    cd jupyterhub-rocker-rstudio
@@ -65,6 +59,12 @@ Follow these steps to set up the environment:
    To include the extended [josousa/rocker_rstudio_extended](https://hub.docker.com/repository/docker/josousa/rocker_rstudio_extended) images, use:
 
    ```bash
+   docker compose -f docker-compose.yml -f docker-compose.rstudio.yml build
+   ```
+
+6. **Run Docker Services**
+
+   ```bash
    docker-compose up -d configurable_http_proxy jupyterhub restic_backup
    ```
 
@@ -73,6 +73,8 @@ Follow these steps to set up the environment:
 Customizing the environmental variables is a crucial step to tailor the project to your specific system requirements. You will need to modify two key files: `docker-compose.yml` and `.envs/.env`.
 
 ### docker-compose.yml
+
+---
 
 #### configurable_http_proxy
 
@@ -197,6 +199,8 @@ def pre_spawn_hook(spawner):
 ```
 
 ### .envs/.env
+
+---
 
 #### Mandatory Variables
 

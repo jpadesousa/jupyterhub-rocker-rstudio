@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [jupyterhub, nginx, restic_backup]
+        service: [configurable_http_proxy, jupyterhub, nginx, restic_backup]
     steps:
       - name: Checkout Code Repository
         uses: actions/checkout@v4

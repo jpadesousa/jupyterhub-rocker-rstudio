@@ -1,4 +1,4 @@
-exclude: "^docs/|^\\.envs/|^\\.git/|^\\.github/|^\\.vscode/|^\\.cache/|^\\.pre-commit-config\\.yaml$"
+exclude: "^docs/|^\\.envs/|^\\.git/|^\\.github/|^\\.vscode/|^\\.cache/|^\\.pre-commit-config\\.yaml|^assets/$"
 default_stages: [commit]
 
 default_language_version:
