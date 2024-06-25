@@ -1,6 +1,6 @@
 # jupyterhub-rocker-rstudio
 
-<img src="assets/hublogo.svg" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 10px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 10px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
+<img src="assets/hublogo.png" alt="Jupyterhub logo" title="Jupyterhub logo" width="100" style="margin-right: 20px; vertical-align: top;"> <img src="assets/rocker.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="50" style="margin-right: 20px; vertical-align: top;"> <img src="assets/eth_logo.png" alt="ETH Zurich logo" title="ETH Zurich logo" width="150" style="vertical-align: top;">
 
 ## Description
 
