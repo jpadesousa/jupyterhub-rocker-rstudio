@@ -13,7 +13,7 @@ scikit-learn==1.5.0
 statsmodels==0.14.2
 plotly==5.22.0
 torch==2.3.1
-biopython==1.83
+biopython==1.84
 pysam==0.22.1
 scikit-bio==0.6.1
 mofapy2==0.7.1
