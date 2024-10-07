@@ -4,7 +4,7 @@ jupyterlab==4.2.5
 pyOpenSSL==24.2.1
 
 # List of Python packages for data science and bioinformatics
-numpy==1.26.4
+numpy==2.1.2
 pandas==2.2.3
 scipy==1.14.1
 matplotlib==3.9.2
