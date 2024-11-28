@@ -1,7 +1,7 @@
 jupyter-rsession-proxy==2.2.1
 notebook==7.2.2
 jupyterlab==4.3.1
-pyOpenSSL==24.2.1
+pyOpenSSL==24.3.0
 
 # List of Python packages for data science and bioinformatics
 numpy==2.1.3
