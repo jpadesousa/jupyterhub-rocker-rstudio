@@ -52,4 +52,16 @@ RUN apt-get update && \
 
 # Install R Bioconductor packages
 RUN R -e "install.packages('BiocManager', repos='http://cran.rstudio.com/'); \
-          BiocManager::install(c('MOFA2', 'DiffBind', 'methylKit', 'genomation', 'EnrichedHeatmap', 'liftOver'))"
+          BiocManager::install(c('MOFA2', 'DiffBind', 'methylKit', 'genomation', 'EnrichedHeatmap', 'liftOver', 'ggkegg', 'pathview'))"
+
+# Install Miniconda
+RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
+    /bin/bash /tmp/miniconda.sh -b -p /opt/conda && \
+    rm /tmp/miniconda.sh && \
+    /opt/conda/bin/conda clean -a -y
+
+# Update PATH environment variable
+ENV PATH /opt/conda/bin:$PATH
+
+# Test Conda installation
+RUN conda --version
