@@ -39,6 +39,7 @@ RUN apt-get update && \
     xz-utils \
     zlib1g-dev \
     libc6-dev \
+    libmagick++-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
