@@ -30,10 +30,10 @@ services:
       context: .
       dockerfile: ./compose/jupyterhub/Dockerfile
       args:
-        - JUPYTERHUB_VERSION=5.0.0
+        - JUPYTERHUB_VERSION=5.2.1
         - DOCKER_GID=981 # Default: 1000
-        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-    image: jupyterhub:5.0.0
+        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+    image: jupyterhub:5.2.1
     container_name: jupyterhub
     env_file:
       - ./.envs/.env
@@ -93,6 +93,20 @@ services:
         restic forget --prune --keep-daily 7 --keep-weekly 4 --keep-monthly 12 &&
         sleep 86400;
       done'
+
+  restic_restore:
+    image: restic/restic:0.16.4
+    container_name: restic_restore
+    volumes:
+      - session_data:/srv/jupyterhub/data
+      - session_data_backup:/backups
+    env_file:
+      - ./.envs/.env
+    environment:
+      - RESTIC_REPOSITORY=/backups
+    entrypoint: /bin/sh -c
+    command: >
+      'restic restore cc53a756 --target /srv/jupyterhub/data'
   # ------------------------------
 
 # VOLUMES

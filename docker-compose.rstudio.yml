@@ -8,15 +8,15 @@ services:
         - IMAGE_NAME=josousa/rocker_rstudio_extended
         - IMAGE_TAG=4.4.2
         - PYTHON_VERSION=3.12.4
-        - JUPYTERHUB_VERSION=5.0.0
+        - JUPYTERHUB_VERSION=5.2.1
         - STARTUP_MESSAGE="Access the NAS (//nas12/green_groups_nme_public) at /public and the scratch folder at /scratch." # Default: If not set, does not add to Rprofile.site
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.4.2 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
         - COPILOT_ENABLED=1 # Default: If not set, does not add to rsession.conf
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.4.2
 
   # RSTUDIO R 4.4.0
@@ -28,15 +28,15 @@ services:
         - IMAGE_NAME=josousa/rocker_rstudio_extended
         - IMAGE_TAG=4.4.0
         - PYTHON_VERSION=3.12.4
-        - JUPYTERHUB_VERSION=5.0.0
+        - JUPYTERHUB_VERSION=5.2.1
         - STARTUP_MESSAGE="Access the NAS (//nas12/green_groups_nme_public) at /public and the scratch folder at /scratch." # Default: If not set, does not add to Rprofile.site
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.4.0 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
         - COPILOT_ENABLED=1 # Default: If not set, does not add to rsession.conf
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.4.0
 
   # RSTUDIO R 4.3.3
@@ -48,15 +48,15 @@ services:
         - IMAGE_NAME=josousa/rocker_rstudio_extended
         - IMAGE_TAG=4.3.3
         - PYTHON_VERSION=3.12.4
-        - JUPYTERHUB_VERSION=5.0.0
+        - JUPYTERHUB_VERSION=5.2.1
         - STARTUP_MESSAGE="Access the NAS (//nas12/green_groups_nme_public) at /public and the scratch folder at /scratch." # Default: If not set, does not add to Rprofile.site
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.3.3 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
         - COPILOT_ENABLED=1 # Default: Default: If not set, does not add to rsession.conf
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.3.3
 
   # RSTUDIO R 4.2.2
@@ -68,12 +68,12 @@ services:
         - IMAGE_NAME=josousa/rocker_rstudio_extended
         - IMAGE_TAG=4.2.2
         - PYTHON_VERSION=3.10.9
-        - JUPYTERHUB_VERSION=5.0.0
+        - JUPYTERHUB_VERSION=5.2.1
         - STARTUP_MESSAGE="Access the NAS (//nas12/green_groups_nme_public) at /public and the scratch folder at /scratch." # Default: If not set, does not add to Rprofile.site
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.2.2 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.2.2

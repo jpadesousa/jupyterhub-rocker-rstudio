@@ -39,9 +39,7 @@ c.Authenticator.enable_auth_state = True
 if os.getenv("JUPYTERHUB_AUTHENTICATOR_CLASS") == "ldapauthenticator.LDAPAuthenticator":
     c.LDAPAuthenticator.server_address = os.getenv("LDAP_AUTHENTICATOR_SERVER_ADDRESS")
     c.LDAPAuthenticator.server_port = int(os.getenv("LDAP_AUTHENTICATOR_SERVER_PORT"))
-    c.LDAPAuthenticator.use_ssl = bool(
-        strtobool(os.getenv("LDAP_AUTHENTICATOR_USE_SSL"))
-    )
+    c.LDAPAuthenticator.tls_strategy = os.getenv("LDAP_AUTHENTICATOR_TLS_STRATEGY")
     c.LDAPAuthenticator.lookup_dn = bool(
         strtobool(os.getenv("LDAP_AUTHENTICATOR_LOOKUP_DN"))
     )
