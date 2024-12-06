@@ -14,9 +14,9 @@ services:
         - COPILOT_ENABLED=1 # Default: If not set, does not add to rsession.conf
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.4.2
 
   # RSTUDIO R 4.4.0
@@ -34,9 +34,9 @@ services:
         - COPILOT_ENABLED=1 # Default: If not set, does not add to rsession.conf
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.4.0
 
   # RSTUDIO R 4.3.3
@@ -73,7 +73,7 @@ services:
         - R_LIBS=/scratch/software/libraries/R/rocker/rstudio/4.2.2 # Default: only /usr/local/lib/R/site-library:/usr/local/lib/R/library
         - R_TMPDIR=/scratch/tmp/R # Default: /tmp
         - R_HISTSIZE=100000 # Default: 1000
-        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
-        - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTPS_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - FTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: rstudio:4.2.2

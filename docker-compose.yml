@@ -32,7 +32,7 @@ services:
       args:
         - JUPYTERHUB_VERSION=5.2.1
         - DOCKER_GID=981 # Default: 1000
-        - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
+        # - HTTP_PROXY=http://proxy.ethz.ch:3128 # Optional
     image: jupyterhub:5.2.1
     container_name: jupyterhub
     env_file:
