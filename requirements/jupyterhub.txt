@@ -1,4 +1,4 @@
-dockerspawner==13.0.0
+dockerspawner==14.0.0
 jupyterhub-ldapauthenticator==2.0.2
 
 # Code quality
