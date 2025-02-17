@@ -6,7 +6,7 @@ pyOpenSSL==25.0.0
 # List of Python packages for data science and bioinformatics
 numpy==2.2.3
 pandas==2.2.3
-scipy==1.15.1
+scipy==1.15.2
 matplotlib==3.10.0
 seaborn==0.13.2
 scikit-learn==1.6.1
