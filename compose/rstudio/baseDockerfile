@@ -52,8 +52,15 @@ RUN apt-get update && \
     && rm -rf /var/lib/apt/lists/*
 
 # Install R Bioconductor packages
-RUN R -e "install.packages('BiocManager', repos='http://cran.rstudio.com/'); \
-          BiocManager::install(c('MOFA2', 'DiffBind', 'methylKit', 'genomation', 'EnrichedHeatmap', 'liftOver', 'ggkegg', 'pathview'))"
+RUN R -e "install.packages('BiocManager')"
+RUN R -e "BiocManager::install('MOFA2')"
+RUN R -e "BiocManager::install('DiffBind')"
+RUN R -e "BiocManager::install('methylKit')"
+RUN R -e "BiocManager::install('genomation')"
+RUN R -e "BiocManager::install('EnrichedHeatmap')"
+RUN R -e "BiocManager::install('liftOver')"
+RUN R -e "BiocManager::install('ggkegg')"
+RUN R -e "BiocManager::install('pathview')"
 
 # Install Miniconda
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O /tmp/miniconda.sh && \
