@@ -3,12 +3,12 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
 
   - package-ecosystem: "docker"
     directory: "./compose/jupyterhub/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -18,7 +18,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "./compose/rstudio/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -28,7 +28,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "./compose/nginx/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -38,7 +38,7 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
     ignore:
       - dependency-name: "*"
         update-types:
@@ -48,4 +48,4 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "monthly"
