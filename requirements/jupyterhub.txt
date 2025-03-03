@@ -3,7 +3,7 @@ jupyterhub-ldapauthenticator==2.0.2
 
 # Code quality
 # ------------------------------------------------------------------------------
-ruff==0.9.7
+ruff==0.9.9
 pre-commit==4.1.0
 
 # Testing
