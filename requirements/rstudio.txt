@@ -1,5 +1,5 @@
 jupyter-rsession-proxy==2.3.0
-notebook==7.3.3
+notebook==7.4.1
 jupyterlab==4.3.5
 pyOpenSSL==25.0.0
 
